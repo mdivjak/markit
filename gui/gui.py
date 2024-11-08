@@ -3,6 +3,8 @@ from create_midi_with_markers import create_midi_with_markers
 
 import tkinter as tk
 from tkinter import filedialog, messagebox
+from tkinter import ttk
+from ttkbootstrap import Style
 import os
 
 def select_video():
@@ -37,29 +39,31 @@ def process_video():
     print(f"MIDI file saved to '{output_file}'")
     messagebox.showinfo("Success", f"MIDI file saved to '{output_file}'")
 
-# Create the main window
-root = tk.Tk()
-root.title("MarkIt")
+
+style = Style(theme='darkly')
+window = style.master
+
+window.title("MarkIt")
 
 # Video path selection
-tk.Label(root, text="Video File:").grid(row=0, column=0, padx=10, pady=10)
-video_path_entry = tk.Entry(root, width=50)
+ttk.Label(window, text="Video File:").grid(row=0, column=0, padx=10, pady=10)
+video_path_entry = ttk.Entry(window, width=50, style='info.TEntry')
 video_path_entry.grid(row=0, column=1, padx=10, pady=10)
-tk.Button(root, text="Browse", command=select_video).grid(row=0, column=2, padx=10, pady=10)
+ttk.Button(window, text="Browse", command=select_video).grid(row=0, column=2, padx=10, pady=10)
 
 # Output path selection
-tk.Label(root, text="Output Path:").grid(row=1, column=0, padx=10, pady=10)
-output_path_entry = tk.Entry(root, width=50)
+ttk.Label(window, text="Output Path:").grid(row=1, column=0, padx=10, pady=10)
+output_path_entry = ttk.Entry(window, width=50, style='info.TEntry')
 output_path_entry.grid(row=1, column=1, padx=10, pady=10)
-tk.Button(root, text="Browse", command=select_output).grid(row=1, column=2, padx=10, pady=10)
+ttk.Button(window, text="Browse", command=select_output).grid(row=1, column=2, padx=10, pady=10)
 
 # MIDI file name input
-tk.Label(root, text="MIDI File Name (without .mid extension):").grid(row=2, column=0, padx=10, pady=10)
-midi_file_name_entry = tk.Entry(root, width=50)
+ttk.Label(window, text="MIDI File Name (without .mid extension):").grid(row=2, column=0, padx=10, pady=10)
+midi_file_name_entry = ttk.Entry(window, width=50, style='info.TEntry')
 midi_file_name_entry.grid(row=2, column=1, padx=10, pady=10)
 
 # Process button
-tk.Button(root, text="Process", command=process_video).grid(row=3, column=0, columnspan=3, pady=20)
+ttk.Button(window, text="Process", command=process_video).grid(row=3, column=0, columnspan=3, pady=20)
 
 # Run the application
-root.mainloop()
+window.mainloop()
