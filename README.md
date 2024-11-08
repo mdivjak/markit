@@ -7,8 +7,8 @@ Cilj ovog projekat je da pomogne montazerima zvuka da ubrzaju rad na svom projek
 ## Commands
 
 ```
-pyinstaller --noconsole --name SceneChangeDetector --icon=markit_icon.ico --onefile your_script_name.py
-pyinstaller SceneChangeDetector.spec
+pyinstaller --noconsole --name MarkIt --icon=markit_icon.ico --onefile gui.py
+pyinstaller MarkIt.spec
 ```
 
 ## Dependencies
