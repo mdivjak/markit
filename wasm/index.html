@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python WASM Example</title>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
+</head>
+<body>
+    <h1>Upload your file</h1>
+    <!-- <input type="file" id="fileInput"> -->
+    <button onclick="processFile()">Process File</button>
+    <pre id="output"></pre>
+
+    <script>
+        async function loadPyodideAndPackages() {
+            self.pyodide = await loadPyodide();
+            await pyodide.loadPackage('micropip');
+            await pyodide.runPythonAsync(`
+                import micropip
+                await micropip.install('my_test')
+                from my_test import hello_world
+            `);
+        }
+
+        async function processFile() {
+            // const fileInput = document.getElementById('fileInput');
+            // const methodSelect = document.getElementById('methodSelect');
+            // const output = document.getElementById('output');
+
+            // if (fileInput.files.length === 0) {
+            //     output.textContent = 'Please select a file.';
+            //     return;
+            // }
+
+            // const file = fileInput.files[0];
+            // const reader = new FileReader();
+            // reader.onload = async function(event) {
+            //     const fileContent = event.target.result;
+            //     const methodName = methodSelect.value;
+            //     const result = await pyodide.runPythonAsync(`
+            //         ${methodName}(${JSON.stringify(fileContent)})
+            //     `);
+            //     output.textContent = result;
+            // };
+            // reader.readAsText(file);
+
+            await pyodide.runPythonAsync(`
+                hello_world()
+            `);
+        }
+
+        loadPyodideAndPackages();
+    </script>
+</body>
+</html>

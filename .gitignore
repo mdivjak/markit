@@ -1,0 +1,4 @@
+*.mp4
+*.mid
+gui/build
+gui/dist
