@@ -1,5 +1,7 @@
 *.mp4
 *.mid
 *.pyc
+*.xlsx
+*.txt
 gui/build
 gui/dist
