@@ -19,7 +19,20 @@ def select_output():
         output_path_entry.delete(0, tk.END)
         output_path_entry.insert(0, output_path)
 
+def log_message(message):
+    log_text.config(state=tk.NORMAL)
+    log_text.insert(tk.END, message + "\n")
+    log_text.see(tk.END)
+    log_text.config(state=tk.DISABLED)
+    window.update_idletasks()
+
 def process_video():
+    # Clear the log text widget
+    log_text.config(state=tk.NORMAL)
+    log_text.delete(1.0, tk.END)
+    log_text.config(state=tk.DISABLED)
+    window.update_idletasks()
+
     video_path = video_path_entry.get()
     output_path = output_path_entry.get()
     midi_file_name = midi_file_name_entry.get()
@@ -30,14 +43,16 @@ def process_video():
     
     output_file = os.path.join(output_path, midi_file_name + ".mid")
     
-    print(f"Detecting scene changes in '{video_path}'...")
+    log_message(f"Detecting scene changes in '{video_path}'...")
+    log_message("This may take a few minutes depending on the video duration.")
     frame_numbers = detect_scene_changes(video_path)
-    print(f"Finished detecting {len(frame_numbers)} scenes in '{video_path}'.")
+    log_message(f"Finished detecting {len(frame_numbers)} scenes in '{video_path}'.")
     
-    print(f"Creating MIDI file with markers for '{video_path}'...")
+    log_message(f"Creating MIDI file with markers for '{video_path}'...")
     create_midi_with_markers(frame_numbers, output_file)
-    print(f"MIDI file saved to '{output_file}'")
-    messagebox.showinfo("Success", f"MIDI file saved to '{output_file}'")
+    log_message(f"MIDI file saved to '{output_file}'")
+    log_message("Success: MIDI file saved.")
+    messagebox.showinfo("Success", "MIDI file saved successfully.")
 
 
 style = Style(theme='darkly')
@@ -64,6 +79,13 @@ midi_file_name_entry.grid(row=2, column=1, padx=10, pady=10)
 
 # Process button
 ttk.Button(window, text="Process", command=process_video).grid(row=3, column=0, columnspan=3, pady=20)
+
+# Log label
+ttk.Label(window, text="Logs:").grid(row=4, column=0, padx=10, pady=10, sticky='w')
+
+# Log text widget
+log_text = tk.Text(window, height=10, width=200, state=tk.DISABLED)
+log_text.grid(row=5, column=0, columnspan=3, padx=10, pady=10)
 
 # Run the application
 window.mainloop()

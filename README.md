@@ -18,6 +18,11 @@ pip install scenedetect[opencv]
 pip install pyaaf2
 ```
 
+## Release Notes
+
+- 15.12.2024. popravio racunanje ticka za markere i update-ovao .exe app
+- 07.01.2025. popravio bug u racunanju tickova u gui verziji app
+
 ## Beleske
 
 - MIDI fajl moze da sadrzi marker ako se sacuva MetaMessage('marker', text='komentar', tick=vreme)

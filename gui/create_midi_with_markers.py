@@ -6,6 +6,8 @@ def create_midi_with_markers(frame_numbers, output_filename, fps=25, bpm=60):
     ticks_per_beat = 960  # Pro Tools uses 960 ticks per beat
     ticks_per_frame = ticks_per_beat / fps  # Ticks per frame
 
+    adjusted_frame_numbers = [round(frame * ticks_per_frame) for frame in frame_numbers]
+
     # Create a new MIDI file and a single track
     mid = MidiFile(ticks_per_beat=ticks_per_beat)
     track = MidiTrack()
@@ -20,15 +22,14 @@ def create_midi_with_markers(frame_numbers, output_filename, fps=25, bpm=60):
 
     # Add markers at each scene change frame number
     previous_tick = 0
-    for i, frame in enumerate(frame_numbers):
+    for i, frame in enumerate(adjusted_frame_numbers):
         # Calculate the tick difference from the previous frame
         if i == 0:
             tick_diff = 0
         else:
-            tick_diff = int((frame - frame_numbers[i - 1]) * ticks_per_frame)
+            tick_diff = frame - adjusted_frame_numbers[i - 1]
         
         marker_text = f'SC {i + 1}'  # Custom marker text for each scene
-        
         # Add a marker (meta event) at the scene change time
         track.append(MetaMessage('marker', text=marker_text, time=tick_diff))
         previous_tick += tick_diff
