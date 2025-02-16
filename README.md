@@ -22,6 +22,7 @@ pip install pyaaf2
 
 - 15.12.2024. popravio racunanje ticka za markere i update-ovao .exe app
 - 07.01.2025. popravio bug u racunanju tickova u gui verziji app
+- 14.02.2025. dodao polje za unos fps vrednosti
 
 ## Beleske
 
