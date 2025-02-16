@@ -95,5 +95,9 @@ ttk.Label(window, text="Logs:").grid(row=4, column=0, padx=10, pady=10, sticky='
 log_text = tk.Text(window, height=10, width=200, state=tk.DISABLED)
 log_text.grid(row=5, column=0, columnspan=3, padx=10, pady=10)
 
+# Version number
+version_number = "MarkIt Version 0.5"
+ttk.Label(window, text=version_number, style='info.TLabel').grid(row=6, column=2, padx=10, pady=10, sticky='e')
+
 # Run the application
 window.mainloop()
