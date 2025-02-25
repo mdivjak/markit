@@ -1,0 +1,5 @@
+opencv-python
+tk
+pytest
+scenedetect[opencv]
+mido
