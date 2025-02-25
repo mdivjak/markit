@@ -6,3 +6,5 @@
 *.txt
 gui/build
 gui/dist
+
+!requirements.txt

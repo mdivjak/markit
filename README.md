@@ -15,9 +15,26 @@ The main features of the tool include:
 
 This MIDI file can be imported into a Pro Tools session that does not contain any markers.
 
-## Commands
+## Dev notes
 
-These commands are used to create a portable .exe of MarkIt:
+### Installing requirements
+
+Requirements are listed in the `requirements.txt` file.
+They can be installed with the following command:
+
+```
+pip install -r requirements.txt
+```
+
+### Running the tool
+
+Main file is `gui/gui.py`.
+To start the tool you should run this file.
+
+### Creating a portable executable
+
+Portable executable is created using `pyinstaller` tool.
+These commands are used to create a portable `.exe` of MarkIt:
 
 ```
 pyinstaller --noconsole --name MarkIt --icon=markit_icon.ico --onefile gui.py
