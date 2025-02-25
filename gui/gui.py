@@ -11,6 +11,20 @@ from tkinter import ttk
 from ttkbootstrap import Style
 
 import os
+import logging
+
+class TextHandler(logging.Handler):
+    def __init__(self, text_widget):
+        logging.Handler.__init__(self)
+        self.text_widget = text_widget
+
+    def emit(self, record):
+        msg = self.format(record)
+        self.text_widget.config(state=tk.NORMAL)
+        self.text_widget.insert(tk.END, msg + "\n")
+        self.text_widget.see(tk.END)
+        self.text_widget.config(state=tk.DISABLED)
+        window.update_idletasks()  # Update the GUI
 
 def select_video():
     video_path = filedialog.askopenfilename(filetypes=[("Video files", "*.mp4;*.avi;*.mov")])
@@ -24,12 +38,13 @@ def select_output_path():
         output_path_entry.delete(0, tk.END)
         output_path_entry.insert(0, output_path)
 
-def log_message(message):
-    log_text.config(state=tk.NORMAL)
-    log_text.insert(tk.END, message + "\n")
-    log_text.see(tk.END)
-    log_text.config(state=tk.DISABLED)
-    window.update_idletasks()
+def setup_logging():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = TextHandler(log_text)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
 def process_video():
     # Clear the log text widget
@@ -46,20 +61,19 @@ def process_video():
         messagebox.showerror("Error", "Please select video file, output path, and enter MIDI file name.")
         return
     
-    video_fps = get_video_fps(video_path)
-    output_file = os.path.join(output_path, midi_file_name + ".mid")
-    
-    log_message(f"Detecting scene changes in '{video_path}'...")
-    log_message("This may take a few minutes depending on the video duration.")
+    logging.info(f"Detecting scene changes in '{video_path}'...")
+    logging.info("This may take a few minutes depending on the video duration.")
     frame_numbers = detect_scene_changes(video_path)
-    log_message(f"Finished detecting {len(frame_numbers)} scenes in '{video_path}'.")
+    logging.info(f"Finished detecting {len(frame_numbers)} scenes in '{video_path}'.")
     
-    log_message(f"Video frame rate is {video_fps} FPS.")
+    video_fps = get_video_fps(video_path)
+    logging.info(f"Video frame rate is {video_fps} FPS.")
 
-    log_message(f"Creating MIDI file with markers for '{video_path}'...")
+    output_file = os.path.join(output_path, midi_file_name + ".mid")
+    logging.info(f"Creating MIDI file with markers for '{video_path}'...")
     create_midi_with_markers(frame_numbers, output_file, fps=video_fps)
-    log_message(f"MIDI file saved to '{output_file}'")
-    log_message("Success: MIDI file saved.")
+    logging.info(f"MIDI file saved to '{output_file}'")
+    logging.info("Success: MIDI file saved.")
     messagebox.showinfo("Success", "MIDI file saved successfully.")
 
 
@@ -98,6 +112,9 @@ log_text.grid(row=5, column=0, columnspan=3, padx=10, pady=10)
 # Version number
 version_number = "MarkIt Version 0.5"
 ttk.Label(window, text=version_number, style='info.TLabel').grid(row=6, column=2, padx=10, pady=10, sticky='e')
+
+# Setup logging
+setup_logging()
 
 # Run the application
 window.mainloop()
