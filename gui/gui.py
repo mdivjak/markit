@@ -60,13 +60,14 @@ def process_video():
     
     if not video_path or not output_path or not midi_file_name:
         messagebox.showerror("Error", "Please select video file, output path, and enter MIDI file name.")
+        enable_buttons()
         return
     
     logging.info(f"Detecting scene changes in '{video_path}'...")
     logging.info("This may take a few minutes depending on the video duration.")
     frame_numbers = detect_scene_changes(video_path)
     logging.info(f"Finished detecting {len(frame_numbers)} scenes in '{video_path}'.")
-    
+
     video_fps = get_video_fps(video_path)
     logging.info(f"Video frame rate is {video_fps} FPS.")
 
@@ -77,11 +78,11 @@ def process_video():
     logging.info("Success: MIDI file saved.")
     messagebox.showinfo("Success", "MIDI file saved successfully.")
 
-    # Re-enable the buttons after processing is complete
+    # Re-enable the buttons and entries after processing is complete
     enable_buttons()
 
 def process_video_thread():
-    # Disable the buttons when the thread starts
+    # Disable the buttons and entries when the thread starts
     disable_buttons()
     threading.Thread(target=process_video).start()
 
@@ -89,11 +90,17 @@ def disable_buttons():
     browse_video_button.config(state=tk.DISABLED)
     browse_output_button.config(state=tk.DISABLED)
     process_button.config(state=tk.DISABLED)
+    video_path_entry.config(state=tk.DISABLED)
+    output_path_entry.config(state=tk.DISABLED)
+    midi_file_name_entry.config(state=tk.DISABLED)
 
 def enable_buttons():
     browse_video_button.config(state=tk.NORMAL)
     browse_output_button.config(state=tk.NORMAL)
     process_button.config(state=tk.NORMAL)
+    video_path_entry.config(state=tk.NORMAL)
+    output_path_entry.config(state=tk.NORMAL)
+    midi_file_name_entry.config(state=tk.NORMAL)
 
 style = Style(theme='darkly')
 window = style.master
