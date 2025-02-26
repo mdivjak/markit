@@ -12,6 +12,7 @@ from ttkbootstrap import Style
 
 import os
 import logging
+import threading
 
 class TextHandler(logging.Handler):
     def __init__(self, text_widget):
@@ -76,6 +77,23 @@ def process_video():
     logging.info("Success: MIDI file saved.")
     messagebox.showinfo("Success", "MIDI file saved successfully.")
 
+    # Re-enable the buttons after processing is complete
+    enable_buttons()
+
+def process_video_thread():
+    # Disable the buttons when the thread starts
+    disable_buttons()
+    threading.Thread(target=process_video).start()
+
+def disable_buttons():
+    browse_video_button.config(state=tk.DISABLED)
+    browse_output_button.config(state=tk.DISABLED)
+    process_button.config(state=tk.DISABLED)
+
+def enable_buttons():
+    browse_video_button.config(state=tk.NORMAL)
+    browse_output_button.config(state=tk.NORMAL)
+    process_button.config(state=tk.NORMAL)
 
 style = Style(theme='darkly')
 window = style.master
@@ -86,13 +104,15 @@ window.title("MarkIt")
 ttk.Label(window, text="Video File:").grid(row=0, column=0, padx=10, pady=10)
 video_path_entry = ttk.Entry(window, width=50, style='info.TEntry')
 video_path_entry.grid(row=0, column=1, padx=10, pady=10)
-ttk.Button(window, text="Browse", command=select_video).grid(row=0, column=2, padx=10, pady=10)
+browse_video_button = ttk.Button(window, text="Browse", command=select_video)
+browse_video_button.grid(row=0, column=2, padx=10, pady=10)
 
 # Output path selection
 ttk.Label(window, text="Output Path:").grid(row=1, column=0, padx=10, pady=10)
 output_path_entry = ttk.Entry(window, width=50, style='info.TEntry')
 output_path_entry.grid(row=1, column=1, padx=10, pady=10)
-ttk.Button(window, text="Browse", command=select_output_path).grid(row=1, column=2, padx=10, pady=10)
+browse_output_button = ttk.Button(window, text="Browse", command=select_output_path)
+browse_output_button.grid(row=1, column=2, padx=10, pady=10)
 
 # MIDI file name input
 ttk.Label(window, text="MIDI File Name (without .mid extension):").grid(row=2, column=0, padx=10, pady=10)
@@ -100,7 +120,8 @@ midi_file_name_entry = ttk.Entry(window, width=50, style='info.TEntry')
 midi_file_name_entry.grid(row=2, column=1, padx=10, pady=10)
 
 # Process button
-ttk.Button(window, text="Process", command=process_video).grid(row=3, column=0, columnspan=3, pady=20)
+process_button = ttk.Button(window, text="Process", command=process_video_thread)
+process_button.grid(row=3, column=0, columnspan=3, pady=20)
 
 # Log label
 ttk.Label(window, text="Logs:").grid(row=4, column=0, padx=10, pady=10, sticky='w')
