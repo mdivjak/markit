@@ -3,3 +3,4 @@ tk
 pytest
 scenedetect[opencv]
 mido
+pyinstaller
