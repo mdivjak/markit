@@ -2,6 +2,7 @@
 *.mov
 *.mid
 *.pyc
+*.spec
 *.xlsx
 *.txt
 gui/build
