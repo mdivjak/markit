@@ -1,7 +1,0 @@
-opencv-python
-tk
-ttkbootstrap
-pytest
-scenedetect[opencv]
-mido
-pyinstaller

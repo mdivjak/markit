@@ -1,11 +1,2 @@
-*.mp4
-*.mov
-*.mid
-*.pyc
-*.spec
-*.xlsx
-*.txt
-gui/build
-gui/dist
-
-!requirements.txt
+example/
+my-impl/
