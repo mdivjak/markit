@@ -1,0 +1,32 @@
+[package]
+name = "rust-scenedetect"
+version = "0.1.0"
+edition = "2021"
+authors = ["Scene Detector Team"]
+description = "Minimal Rust implementation of PySceneDetect's ContentDetector"
+license = "MIT"
+repository = "https://github.com/user/rust-scenedetect"
+
+[dependencies]
+# OpenCV bindings for video processing (matches PySceneDetect's default backend)
+opencv = {version = "0.94.4"}
+
+# Instrumentation and tracing (user's preferred framework)
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# JSON serialization for CLI output
+serde_json = "1.0"
+
+[[bin]]
+name = "rust-scenedetect"
+path = "src/main.rs"
+
+[profile.release]
+# Optimize for performance
+lto = true        # Link-time optimization
+codegen-units = 1 # Single codegen unit for maximum optimization
