@@ -9,3 +9,7 @@ gui/build
 gui/dist
 
 !requirements.txt
+
+example/
+my-impl/
+rust-scenedetect/

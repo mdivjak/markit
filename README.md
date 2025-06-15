@@ -13,6 +13,26 @@ The main features of the tool include:
 - The MIDI file can be imported into a Pro Tools session that does not contain any markers.
 - Pro Tools has a limit of importing maximum 1.000 markers in a session.
 
+## Quickstart
+
+### Download MarkIt
+
+1. Go to the [Releases page](../../releases)
+2. Download the latest `MarkIt.exe` file
+3. Double-click the downloaded file to run MarkIt
+
+### How to Use
+
+1. **Launch MarkIt** - Double-click the `MarkIt.exe` file
+2. **Load your video** - Select your video file using the file browser
+3. **Set the output destination** - The output destination for the MIDI file
+4. **Detect scenes** - Click the detection button to analyze your video
+5. **Import to Pro Tools** - Load the MIDI file into your Pro Tools session
+
+**Important Notes:**
+- Only import MIDI files into Pro Tools sessions that don't already have markers
+- Pro Tools supports a maximum of 1,000 markers per session
+
 ## Motivation
 
 The motivation for this project was to help a friend automate a tedious and boring part of the sound editing process.
