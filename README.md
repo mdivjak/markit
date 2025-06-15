@@ -1,5 +1,11 @@
 # MarkIt
 
+![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
+![License](https://img.shields.io/badge/license-GPL%20v3-blue.svg)
+![Platform](https://img.shields.io/badge/platform-windows-lightgrey.svg)
+![Release](https://img.shields.io/github/v/release/mdivjak/markit?include_prereleases)
+![Downloads](https://img.shields.io/github/downloads/mdivjak/markit/total)
+
 ## Description
 
 The MarkIt tool helps sound editors to automate detecting scene changes in videos and importing scene markers in Pro Tools.
