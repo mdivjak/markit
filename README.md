@@ -9,10 +9,6 @@ The main features of the tool include:
 - Easy import of generated MIDI files into Pro Tools sessions.
 - User-friendly GUI for configuring detection parameters and exporting results.
 
-**Notes:**
-- The MIDI file can be imported into a Pro Tools session that does not contain any markers.
-- Pro Tools has a limit of importing maximum 1.000 markers in a session.
-
 ## Quickstart
 
 ### Download MarkIt
